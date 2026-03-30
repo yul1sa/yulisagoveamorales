@@ -469,7 +469,7 @@
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">Yulisa Govea-Morales</div>
+  <div class="nav-logo">YourName</div>
   <ul class="nav-links">
     <li><a href="#home">Home</a></li>
     <li><a href="#about">About</a></li>
@@ -692,4 +692,12 @@
 <script>
   // Scroll reveal
   const reveals = document.querySelectorAll('.reveal');
-  const observer = new In
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.05 });
+  reveals.forEach(r => observer.observe(r));
+</script>
+</body>
+</html>
