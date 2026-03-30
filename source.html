@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --coral: #FF6B6B;
+      --yellow: #FFE66D;
+      --teal: #4ECDC4;
+      --purple: #C77DFF;
+      --navy: #0D1117;
+      --offwhite: #F7F3EE;
+      --ink: #1a1a2e;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--navy);
+      color: var(--offwhite);
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* Custom cursor */
+    .cursor {
+      width: 16px; height: 16px;
+      background: var(--yellow);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease, width 0.2s, height 0.2s, background 0.2s;
+      mix-blend-mode: difference;
+    }
+    .cursor.grow { width: 40px; height: 40px; }
+
+    /* Nav */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 3rem;
+      backdrop-filter: blur(12px);
+      background: rgba(13,17,23,0.7);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.4rem;
+      background: linear-gradient(135deg, var(--coral), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--offwhite);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; }
+
+    /* Sections */
+    section { min-height: 100vh; padding: 8rem 3rem 4rem; }
+
+    /* ─── HERO ─── */
+    #home {
+      display: flex; flex-direction: column; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.35;
+      animation: float 8s ease-in-out infinite;
+    }
+    .blob-1 { width: 420px; height: 420px; background: var(--coral); top: -80px; right: -80px; animation-delay: 0s; }
+    .blob-2 { width: 320px; height: 320px; background: var(--purple); bottom: 40px; left: -60px; animation-delay: 3s; }
+    .blob-3 { width: 260px; height: 260px; background: var(--teal); top: 40%; left: 40%; animation-delay: 5s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-30px) scale(1.05); }
+    }
+
+    .hero-content { position: relative; z-index: 2; max-width: 800px; }
+
+    .hero-tag {
+      display: inline-block;
+      background: rgba(255,230,109,0.15);
+      border: 1px solid var(--yellow);
+      color: var(--yellow);
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.35rem 1rem;
+      border-radius: 100px;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    .h1-line2 {
+      background: linear-gradient(90deg, var(--coral), var(--yellow), var(--teal));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      background-size: 200%;
+      animation: fadeUp 0.6s 0.2s ease both, shimmer 4s linear infinite;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+
+    .hero-sub {
+      margin-top: 1.5rem;
+      font-size: 1.15rem;
+      line-height: 1.8;
+      opacity: 0.7;
+      max-width: 520px;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .hero-cta {
+      margin-top: 2.5rem;
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+
+    .btn {
+      padding: 0.85rem 2rem;
+      border-radius: 100px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: inline-block;
+    }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,0.3); }
+
+    .btn-primary { background: var(--coral); color: white; }
+    .btn-ghost { background: transparent; color: var(--offwhite); border: 1px solid rgba(255,255,255,0.3); }
+    .btn-ghost:hover { border-color: var(--teal); color: var(--teal); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Scroll indicator */
+    .scroll-hint {
+      position: absolute; bottom: 2rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      opacity: 0.4; font-size: 0.75rem; letter-spacing: 0.1em;
+      animation: bob 2s ease-in-out infinite;
+    }
+    .scroll-hint::after {
+      content: '';
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, var(--offwhite), transparent);
+    }
+    @keyframes bob { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+
+    /* ─── SECTION HEADERS ─── */
+    .section-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      margin-bottom: 2.5rem;
+      line-height: 1.1;
+    }
+
+    .accent { color: var(--yellow); }
+
+    /* Divider */
+    .divider {
+      width: 60px; height: 4px;
+      background: linear-gradient(90deg, var(--coral), var(--purple));
+      border-radius: 2px;
+      margin-bottom: 2rem;
+    }
+
+    /* ─── ABOUT ─── */
+    #about {
+      background: rgba(255,255,255,0.02);
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      max-width: 1100px;
+    }
+
+    .about-text p {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      opacity: 0.75;
+      margin-bottom: 1.2rem;
+    }
+
+    .about-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .about-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 1.5rem;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .about-card:hover { transform: translateY(-4px); border-color: var(--teal); }
+
+    .card-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+    .card-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 0.3rem; }
+    .card-desc { font-size: 0.85rem; opacity: 0.6; line-height: 1.6; }
+
+    /* ─── RESUME ─── */
+    #resume { border-top: 1px solid rgba(255,255,255,0.05); }
+
+    .resume-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; max-width: 1100px; }
+
+    .resume-col h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--yellow);
+      margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+
+    .timeline { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 1.5rem;
+      border-left: 2px solid rgba(255,255,255,0.1);
+      transition: border-color 0.2s;
+    }
+    .timeline-item:hover { border-color: var(--coral); }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -5px; top: 6px;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--coral);
+    }
+
+    .timeline-date {
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      color: var(--coral);
+      margin-bottom: 0.3rem;
+    }
+    .timeline-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 0.2rem; }
+    .timeline-sub { font-size: 0.85rem; opacity: 0.5; margin-bottom: 0.5rem; }
+    .timeline-desc { font-size: 0.9rem; opacity: 0.7; line-height: 1.6; }
+
+    /* Skills */
+    .skills-grid { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1rem; }
+    .skill-tag {
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.2s;
+    }
+    .skill-tag:hover { background: rgba(78,205,196,0.15); border-color: var(--teal); color: var(--teal); }
+
+    .skill-tag.coral:hover { background: rgba(255,107,107,0.15); border-color: var(--coral); color: var(--coral); }
+    .skill-tag.purple:hover { background: rgba(199,125,255,0.15); border-color: var(--purple); color: var(--purple); }
+
+    /* Download btn */
+    .resume-download {
+      margin-top: 2.5rem;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 2rem;
+      background: linear-gradient(135deg, var(--coral), var(--purple));
+      border-radius: 100px;
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .resume-download:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(255,107,107,0.3); }
+
+    /* ─── GOALS ─── */
+    #goals {
+      background: rgba(255,255,255,0.02);
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .goals-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      max-width: 1100px;
+    }
+
+    .goal-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 20px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.25s, border-color 0.25s;
+    }
+    .goal-card:hover { transform: translateY(-6px); }
+
+    .goal-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+    .goal-card:nth-child(1)::before { background: var(--coral); }
+    .goal-card:nth-child(2)::before { background: var(--teal); }
+    .goal-card:nth-child(3)::before { background: var(--purple); }
+    .goal-card:nth-child(4)::before { background: var(--yellow); }
+    .goal-card:nth-child(5)::before { background: linear-gradient(90deg,var(--coral),var(--purple)); }
+    .goal-card:nth-child(6)::before { background: linear-gradient(90deg,var(--teal),var(--yellow)); }
+
+    .goal-card:nth-child(1):hover { border-color: var(--coral); }
+    .goal-card:nth-child(2):hover { border-color: var(--teal); }
+    .goal-card:nth-child(3):hover { border-color: var(--purple); }
+
+    .goal-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 800;
+      opacity: 0.07;
+      position: absolute;
+      top: 1rem; right: 1.2rem;
+      line-height: 1;
+    }
+
+    .goal-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+    .goal-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 0.75rem; }
+    .goal-text { font-size: 0.9rem; opacity: 0.65; line-height: 1.75; }
+
+    .goals-quote {
+      max-width: 700px;
+      margin: 3rem 0 0;
+      padding: 2rem;
+      border-left: 3px solid var(--yellow);
+      background: rgba(255,230,109,0.05);
+      border-radius: 0 12px 12px 0;
+    }
+    .goals-quote p {
+      font-size: 1.1rem;
+      font-style: italic;
+      line-height: 1.8;
+      opacity: 0.8;
+    }
+    .goals-quote cite {
+      display: block;
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+      opacity: 0.5;
+      font-style: normal;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      text-align: center;
+      padding: 3rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      font-size: 0.85rem;
+      opacity: 0.4;
+    }
+
+    /* Reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      section { padding: 6rem 1.5rem 3rem; }
+      .about-grid, .resume-layout, .goals-grid { grid-template-columns: 1fr; }
+      .about-cards { grid-template-columns: 1fr 1fr; }
+      .goals-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .about-cards, .goals-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">YourName</div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#resume">Resume</a></li>
+    <li><a href="#goals">Goals</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <div class="hero-content">
+    <div class="hero-tag">✦ Welcome to my portfolio</div>
+    <h1>
+      Hi, I'm<br>
+      <span class="h1-line2">Your Name</span>
+    </h1>
+    <p class="hero-sub">
+      A passionate student on a journey of curiosity, creativity, and growth. I love turning ideas into reality and making my mark on the world — one project at a time.
+    </p>
+    <div class="hero-cta">
+      <a href="#about" class="btn btn-primary">Get to know me →</a>
+      <a href="#resume" class="btn btn-ghost">View Resume</a>
+    </div>
+  </div>
+
+  <div class="scroll-hint">scroll</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid reveal">
+    <div class="about-text">
+      <p class="section-label">About Me</p>
+      <h2 class="section-title">Who I <span class="accent">Am</span></h2>
+      <div class="divider"></div>
+      <p>
+        Hey! I'm a student with a big curiosity and an even bigger drive to learn. Whether it's diving into a new subject, collaborating on a project, or exploring a creative idea — I'm always all in.
+      </p>
+      <p>
+        Outside of academics, I love [your hobbies here]. I believe in continuous growth, meaningful connections, and doing work that actually matters.
+      </p>
+      <p>
+        Currently studying at <strong>[Your School]</strong>, expected to graduate in <strong>[Year]</strong>.
+      </p>
+    </div>
+    <div class="about-cards">
+      <div class="about-card">
+        <div class="card-icon">🎓</div>
+        <div class="card-title">Education</div>
+        <div class="card-desc">Studying [Your Major] with a focus on [area]</div>
+      </div>
+      <div class="about-card">
+        <div class="card-icon">💡</div>
+        <div class="card-title">Interests</div>
+        <div class="card-desc">Technology, design, problem-solving & creativity</div>
+      </div>
+      <div class="about-card">
+        <div class="card-icon">🌍</div>
+        <div class="card-title">Location</div>
+        <div class="card-desc">Based in [Your City], open to opportunities worldwide</div>
+      </div>
+      <div class="about-card">
+        <div class="card-icon">🚀</div>
+        <div class="card-title">Mindset</div>
+        <div class="card-desc">Growth-oriented, collaborative, always learning</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESUME -->
+<section id="resume">
+  <p class="section-label">My Background</p>
+  <h2 class="section-title">Resume & <span class="accent">Skills</span></h2>
+  <div class="divider"></div>
+
+  <div class="resume-layout reveal">
+    <!-- Left column -->
+    <div class="resume-col">
+      <h3>📚 Education</h3>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-date">2022 — Present</div>
+          <div class="timeline-title">[Your Degree], [Your Major]</div>
+          <div class="timeline-sub">[Your University or School]</div>
+          <div class="timeline-desc">GPA: [X.X] · Relevant coursework: [Course 1], [Course 2], [Course 3]</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">2018 — 2022</div>
+          <div class="timeline-title">High School Diploma</div>
+          <div class="timeline-sub">[Your High School]</div>
+          <div class="timeline-desc">Honor Roll · [Club or activity] · [Achievement]</div>
+        </div>
+      </div>
+
+      <h3 style="margin-top:2.5rem">💼 Experience</h3>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-date">Summer 2024</div>
+          <div class="timeline-title">[Internship / Job Title]</div>
+          <div class="timeline-sub">[Company or Organization]</div>
+          <div class="timeline-desc">Describe what you did, what you learned, and the impact you made in 1–2 sentences.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">2023 — Present</div>
+          <div class="timeline-title">[Club Role / Volunteer]</div>
+          <div class="timeline-sub">[Organization Name]</div>
+          <div class="timeline-desc">Brief description of your responsibilities and contributions.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right column -->
+    <div class="resume-col">
+      <h3>🛠 Technical Skills</h3>
+      <div class="skills-grid">
+        <span class="skill-tag">Microsoft Office</span>
+        <span class="skill-tag">Google Workspace</span>
+        <span class="skill-tag">Data Analysis</span>
+        <span class="skill-tag coral">Python</span>
+        <span class="skill-tag coral">HTML / CSS</span>
+        <span class="skill-tag coral">JavaScript</span>
+        <span class="skill-tag purple">Figma</span>
+        <span class="skill-tag purple">Canva</span>
+        <span class="skill-tag">[Add yours]</span>
+      </div>
+
+      <h3 style="margin-top:2.5rem">🤝 Soft Skills</h3>
+      <div class="skills-grid">
+        <span class="skill-tag">Communication</span>
+        <span class="skill-tag">Leadership</span>
+        <span class="skill-tag coral">Critical Thinking</span>
+        <span class="skill-tag coral">Teamwork</span>
+        <span class="skill-tag purple">Time Management</span>
+        <span class="skill-tag purple">Adaptability</span>
+        <span class="skill-tag">Problem Solving</span>
+        <span class="skill-tag">Research</span>
+      </div>
+
+      <h3 style="margin-top:2.5rem">🏅 Honors & Activities</h3>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-date">2024</div>
+          <div class="timeline-title">[Award or Honor]</div>
+          <div class="timeline-sub">[Issued by]</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">2023</div>
+          <div class="timeline-title">[Club / Activity]</div>
+          <div class="timeline-sub">[Organization]</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a href="#" class="resume-download" onclick="alert('Add your resume PDF link here!')">
+    ⬇ Download Full Resume
+  </a>
+</section>
+
+<!-- GOALS -->
+<section id="goals">
+  <p class="section-label">Looking Ahead</p>
+  <h2 class="section-title">Career <span class="accent">Goals</span></h2>
+  <div class="divider"></div>
+
+  <div class="goals-grid reveal">
+    <div class="goal-card">
+      <div class="goal-num">01</div>
+      <div class="goal-icon">🎯</div>
+      <div class="goal-title">Short-Term Goal</div>
+      <div class="goal-text">Land a meaningful internship or entry-level role in [your field] where I can apply my skills and keep growing in a real-world environment.</div>
+    </div>
+    <div class="goal-card">
+      <div class="goal-num">02</div>
+      <div class="goal-icon">🌱</div>
+      <div class="goal-title">Build Expertise</div>
+      <div class="goal-text">Deepen my knowledge in [specific area] and develop a specialization that sets me apart and allows me to create genuine impact.</div>
+    </div>
+    <div class="goal-card">
+      <div class="goal-num">03</div>
+      <div class="goal-icon">🤝</div>
+      <div class="goal-title">Collaborate & Lead</div>
+      <div class="goal-text">Work with diverse, talented teams and eventually step into leadership — bringing people together around ideas that matter.</div>
+    </div>
+    <div class="goal-card">
+      <div class="goal-num">04</div>
+      <div class="goal-icon">🌍</div>
+      <div class="goal-title">Make an Impact</div>
+      <div class="goal-text">Use my career to contribute to something larger — whether that's a community, an industry, or a cause I deeply care about.</div>
+    </div>
+    <div class="goal-card">
+      <div class="goal-num">05</div>
+      <div class="goal-icon">📚</div>
+      <div class="goal-title">Never Stop Learning</div>
+      <div class="goal-text">Commit to lifelong learning — staying curious, embracing new challenges, and adapting to whatever the future brings.</div>
+    </div>
+    <div class="goal-card">
+      <div class="goal-num">06</div>
+      <div class="goal-icon">✨</div>
+      <div class="goal-title">Long-Term Vision</div>
+      <div class="goal-text">In 10 years, I see myself [your big vision] — having built something I'm proud of and helping the next generation do the same.</div>
+    </div>
+  </div>
+
+  <div class="goals-quote reveal">
+    <p>"The future belongs to those who believe in the beauty of their dreams."</p>
+    <cite>— Eleanor Roosevelt</cite>
+  </div>
+</section>
+
+<footer>
+  <p>Built with ♥ by YourName · <a href="mailto:you@email.com" style="color:var(--teal);text-decoration:none">you@email.com</a></p>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+  document.querySelectorAll('a, button, .about-card, .goal-card, .timeline-item, .skill-tag').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('grow'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('grow'));
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => observer.observe(r));
+</script>
+</body>
+</html>
