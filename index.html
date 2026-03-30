@@ -25,33 +25,14 @@
       background: var(--navy);
       color: var(--offwhite);
       overflow-x: hidden;
-      cursor: none;
-      max-width: 1400px;
-      margin: 0 auto;
     }
-
-    /* Custom cursor */
-    .cursor {
-      width: 16px; height: 16px;
-      background: var(--coral);
-      border-radius: 50%;
-      position: fixed;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: transform 0.1s ease, width 0.2s, height 0.2s, background 0.2s;
-      mix-blend-mode: multiply;
-    }
-    .cursor.grow { width: 40px; height: 40px; }
 
     /* Nav */
     nav {
-      position: fixed; top: 0; left: 50%; right: auto;
-      transform: translateX(-50%);
-      width: 100%; max-width: 1400px;
+      position: fixed; top: 0; left: 0; right: 0;
       z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
-      padding: 1.2rem 3rem;
+      padding: 1.2rem 5rem;
       backdrop-filter: blur(12px);
       background: rgba(255,245,238,0.85);
       border-bottom: 1px solid rgba(0,0,0,0.08);
@@ -80,12 +61,14 @@
     .nav-links a:hover { opacity: 1; }
 
     /* Sections */
-    section { min-height: 100vh; padding: 8rem 3rem 4rem; }
+    section { min-height: 100vh; padding: 8rem 0 4rem; }
+    #about, #resume, #goals { padding: 6rem 5rem; }
 
     /* ─── HERO ─── */
     #home {
-      display: flex; flex-direction: column; justify-content: center;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
       position: relative; overflow: hidden;
+      text-align: center;
     }
 
     .blob {
@@ -104,7 +87,7 @@
       50% { transform: translateY(-30px) scale(1.05); }
     }
 
-    .hero-content { position: relative; z-index: 2; max-width: 800px; }
+    .hero-content { position: relative; z-index: 2; max-width: 800px; display: flex; flex-direction: column; align-items: center; }
 
     .hero-tag {
       display: inline-block;
@@ -148,6 +131,7 @@
       line-height: 1.8;
       opacity: 0.7;
       max-width: 520px;
+      text-align: center;
       animation: fadeUp 0.6s 0.3s ease both;
     }
 
@@ -178,6 +162,40 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* Hero boxes */
+    .hero-boxes {
+      display: flex;
+      gap: 1rem;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeUp 0.6s 0.5s ease both;
+    }
+
+    .hero-box {
+      background: rgba(255,255,255,0.65);
+      border: 1px solid rgba(0,0,0,0.09);
+      border-radius: 16px;
+      padding: 1.2rem 1.6rem;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      text-align: center;
+      min-width: 120px;
+      backdrop-filter: blur(8px);
+    }
+    .hero-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+      border-color: var(--coral);
+    }
+    .hero-box:nth-child(2):hover { border-color: var(--teal); }
+    .hero-box:nth-child(3):hover { border-color: var(--purple); }
+    .hero-box:nth-child(4):hover { border-color: var(--yellow); }
+
+    .hero-box-icon { font-size: 1.6rem; margin-bottom: 0.4rem; }
+    .hero-box-label { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--ink); }
+    .hero-box-sub { font-size: 0.75rem; opacity: 0.5; margin-top: 0.2rem; }
+
     /* Scroll indicator */
     .scroll-hint {
       position: absolute; bottom: 2rem; left: 50%;
@@ -192,6 +210,9 @@
       background: linear-gradient(to bottom, var(--ink), transparent);
     }
     @keyframes bob { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+
+    /* ─── SECTION HEADERS ─── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 4rem; }
 
     /* ─── SECTION HEADERS ─── */
     .section-label {
@@ -431,19 +452,20 @@
     @media (max-width: 768px) {
       nav { padding: 1rem 1.5rem; }
       .nav-links { display: none; }
-      section { padding: 6rem 1.5rem 3rem; }
+      .container { padding: 0 1.5rem; }
       .about-grid, .resume-layout, .goals-grid { grid-template-columns: 1fr; }
       .about-cards { grid-template-columns: 1fr 1fr; }
       .goals-grid { grid-template-columns: 1fr 1fr; }
+      .hero-boxes { gap: 0.75rem; }
+      .hero-box { min-width: 100px; padding: 1rem; }
     }
     @media (max-width: 480px) {
       .about-cards, .goals-grid { grid-template-columns: 1fr; }
+      .hero-boxes { grid-template-columns: 1fr 1fr; display: grid; }
     }
   </style>
 </head>
 <body>
-
-<div class="cursor" id="cursor"></div>
 
 <!-- NAV -->
 <nav>
@@ -475,6 +497,8 @@
       <a href="#about" class="btn btn-primary">Get to know me →</a>
       <a href="#resume" class="btn btn-ghost">View Resume</a>
     </div>
+
+
   </div>
 
   <div class="scroll-hint">scroll</div>
@@ -521,8 +545,6 @@
     </div>
   </div>
 </section>
-
-<!-- RESUME -->
 <section id="resume">
   <p class="section-label">My Background</p>
   <h2 class="section-title">Resume & <span class="accent">Skills</span></h2>
@@ -667,18 +689,7 @@
   <p>Built with ♥ by YourName · <a href="/cdn-cgi/l/email-protection#a4ddcbd1e4c1c9c5cdc88ac7cbc9" style="color:var(--teal);text-decoration:none"><span class="__cf_email__" data-cfemail="027b6d7742676f636b6e2c616d6f">[email&#160;protected]</span></a></p>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // Custom cursor
-  const cursor = document.getElementById('cursor');
-  document.addEventListener('mousemove', e => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
-  });
-  document.querySelectorAll('a, button, .about-card, .goal-card, .timeline-item, .skill-tag').forEach(el => {
-    el.addEventListener('mouseenter', () => cursor.classList.add('grow'));
-    el.addEventListener('mouseleave', () => cursor.classList.remove('grow'));
-  });
-
+<script>
   // Scroll reveal
   const reveals = document.querySelectorAll('.reveal');
   const observer = new In
