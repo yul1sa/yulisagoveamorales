@@ -103,7 +103,7 @@
   z-index: 100;
   display: flex; 
   justify-content: space-between;
-  align-items: center;   /* ADD THIS */
+  align-items: center;
   gap: 3rem;
   padding: 1.2rem 5rem;
   backdrop-filter: blur(12px);
@@ -136,7 +136,7 @@
 
     /* Sections */
     section { min-height: 100vh; padding: 8rem 0 4rem; }
-    #about, #resume, #goals { padding: 6rem 5rem 6rem 8rem; }
+    #about, #resume, #goals { padding: 6rem 5rem; }
     
     .about-grid, .resume-layout, .goals-grid, .goals-quote, .section-label, .section-title, .divider, .resume-download {
       max-width: 1200px;
@@ -294,7 +294,6 @@
     /* ─── SECTION HEADERS ─── */
     .container { max-width: 1200px; margin: 0 auto; padding: 0 4rem; }
 
-    /* ─── SECTION HEADERS ─── */
     .section-label {
       font-size: 0.8rem;
       letter-spacing: 0.2em;
@@ -364,7 +363,8 @@
     /* ─── RESUME ─── */
     #resume { border-top: 1px solid rgba(0,0,0,0.07); }
 
-    .resume-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; max-width: 1100px; }
+    .resume-col { overflow: visible; padding-left: 0.5rem; }
+    .resume-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; max-width: 1100px; margin-left: auto; margin-right: auto; }
 
     .resume-col h3 {
       font-family: 'Syne', sans-serif;
@@ -393,21 +393,9 @@
       background: var(--coral);
     }
 
-    .timeline-item:nth-child(1)::before {
-  top: 6px;
-  transform: none;
-}
-
-.timeline-item:nth-child(2)::before {
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.timeline-item:nth-child(3)::before {
-  top: auto;
-  bottom: 6px;
-  transform: none;
-}
+    .timeline-item:nth-child(1)::before { top: 6px; transform: none; }
+    .timeline-item:nth-child(2)::before { top: 50%; transform: translateY(-50%); }
+    .timeline-item:nth-child(3)::before { top: auto; bottom: 6px; transform: none; }
 
     .timeline-date {
       font-size: 0.75rem;
@@ -415,7 +403,7 @@
       color: var(--coral);
       margin-bottom: 0.3rem;
     }
-    .timeline-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 0.2rem; }
+    .timeline-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 0.2rem; line-height: 1.4; padding-bottom: 0.15rem; }
     .timeline-sub { font-size: 0.85rem; opacity: 0.5; margin-bottom: 0.5rem; }
     .timeline-desc { font-size: 0.9rem; opacity: 0.7; line-height: 1.6; }
 
@@ -431,7 +419,6 @@
       transition: all 0.2s;
     }
     .skill-tag:hover { background: rgba(78,205,196,0.15); border-color: var(--teal); color: var(--teal); }
-
     .skill-tag.coral:hover { background: rgba(255,107,107,0.15); border-color: var(--coral); color: var(--coral); }
     .skill-tag.purple:hover { background: rgba(199,125,255,0.15); border-color: var(--purple); color: var(--purple); }
 
@@ -452,81 +439,108 @@
     }
     .resume-download:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(255,107,107,0.3); }
 
-    /* ─── GOALS ─── */
+    /* ─── GOALS TIMELINE ─── */
     #goals {
       background: rgba(0,0,0,0.02);
       border-top: 1px solid rgba(0,0,0,0.07);
     }
 
-    .goals-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      max-width: 1100px;
-    }
-
-    .goal-card {
-      background: rgba(255,255,255,0.6);
-      border: 1px solid rgba(0,0,0,0.07);
-      border-radius: 20px;
-      padding: 2rem;
+    .goal-timeline {
       position: relative;
-      overflow: hidden;
-      transition: transform 0.25s, border-color 0.25s;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 1rem 0;
     }
-    .goal-card:hover { transform: translateY(-6px); }
 
-    .goal-card::before {
+    .goal-timeline::before {
       content: '';
       position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
+      left: 50%;
+      top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--coral), var(--purple), var(--teal));
+      transform: translateX(-50%);
     }
-    .goal-card:nth-child(1)::before { background: var(--coral); }
-    .goal-card:nth-child(2)::before { background: var(--teal); }
-    .goal-card:nth-child(3)::before { background: var(--purple); }
-    .goal-card:nth-child(4)::before { background: var(--yellow); }
-    .goal-card:nth-child(5)::before { background: linear-gradient(90deg,var(--coral),var(--purple)); }
-    .goal-card:nth-child(6)::before { background: linear-gradient(90deg,var(--teal),var(--yellow)); }
 
-    .goal-card:nth-child(1):hover { border-color: var(--coral); }
-    .goal-card:nth-child(2):hover { border-color: var(--teal); }
-    .goal-card:nth-child(3):hover { border-color: var(--purple); }
+    .gt-item {
+      display: flex;
+      justify-content: flex-end;
+      padding-right: calc(50% + 2.5rem);
+      margin-bottom: 2.5rem;
+      position: relative;
+      cursor: pointer;
+    }
+    .gt-item:nth-child(even) {
+      justify-content: flex-start;
+      padding-right: 0;
+      padding-left: calc(50% + 2.5rem);
+    }
 
-    .goal-num {
-      font-family: 'Syne', sans-serif;
-      font-size: 3.5rem;
-      font-weight: 800;
-      opacity: 0.07;
+    .gt-item::after {
+      content: '';
       position: absolute;
-      top: 1rem; right: 1.2rem;
-      line-height: 1;
+      left: 50%;
+      top: 1.2rem;
+      transform: translateX(-50%);
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: white;
+      border: 3px solid var(--coral);
+      transition: transform 0.2s, background 0.2s;
+      z-index: 1;
+    }
+    .gt-item:nth-child(2)::after { border-color: var(--teal); }
+    .gt-item:nth-child(3)::after { border-color: var(--purple); }
+    .gt-item:nth-child(4)::after { border-color: var(--yellow); }
+    .gt-item:nth-child(5)::after { border-color: var(--coral); }
+    .gt-item:nth-child(6)::after { border-color: var(--teal); }
+
+    .gt-item:hover::after { transform: translateX(-50%) scale(1.4); background: var(--coral); }
+    .gt-item:nth-child(2):hover::after { background: var(--teal); }
+    .gt-item:nth-child(3):hover::after { background: var(--purple); }
+    .gt-item:nth-child(4):hover::after { background: var(--yellow); }
+
+    .gt-card {
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 16px;
+      padding: 1.5rem 1.8rem;
+      max-width: 340px;
+      transition: transform 0.25s, box-shadow 0.25s;
+      position: relative;
+    }
+    .gt-item:hover .gt-card {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
     }
 
-    .goal-icon { font-size: 1.8rem; margin-bottom: 1rem; }
-    .goal-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 0.75rem; }
-    .goal-text { font-size: 0.9rem; opacity: 0.65; line-height: 1.75; }
+    .gt-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .gt-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--coral);
+      margin-bottom: 0.3rem;
+    }
+    .gt-item:nth-child(2) .gt-label { color: var(--teal); }
+    .gt-item:nth-child(3) .gt-label { color: var(--purple); }
+    .gt-item:nth-child(4) .gt-label { color: var(--yellow); }
+    .gt-item:nth-child(5) .gt-label { color: var(--coral); }
+    .gt-item:nth-child(6) .gt-label { color: var(--teal); }
 
-    .goals-quote {
-      max-width: 700px;
-      margin: 3rem 0 0;
-      padding: 2rem;
-      border-left: 3px solid var(--yellow);
-      background: rgba(212,134,10,0.07);
-      border-radius: 0 12px 12px 0;
-    }
-    .goals-quote p {
-      font-size: 1.1rem;
-      font-style: italic;
-      line-height: 1.8;
-      opacity: 0.8;
-    }
-    .goals-quote cite {
-      display: block;
-      margin-top: 0.75rem;
-      font-size: 0.85rem;
-      opacity: 0.5;
-      font-style: normal;
+    .gt-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; margin-bottom: 0.5rem; }
+    .gt-text { font-size: 0.88rem; opacity: 0; line-height: 1.7; max-height: 0; overflow: hidden; transition: max-height 0.4s ease, opacity 0.3s; }
+    .gt-item:hover .gt-text, .gt-item.open .gt-text { max-height: 200px; opacity: 0.65; }
+
+    @media (max-width: 650px) {
+      .goal-timeline::before { left: 1rem; }
+      .gt-item, .gt-item:nth-child(even) {
+        justify-content: flex-start;
+        padding-left: 3.5rem;
+        padding-right: 0;
+      }
+      .gt-item::after, .gt-item:nth-child(even)::after { left: 1rem; }
+      .gt-card { max-width: 100%; }
     }
 
     /* ─── FOOTER ─── */
@@ -599,7 +613,6 @@
   <div class="scroll-hint">scroll</div>
 </section>
 
-  
 <!-- ABOUT -->
 <section id="about">
    <h2 class="section-title">About Me</h2>
@@ -622,9 +635,7 @@
   </div>
 </section>
 
-  
 <section id="resume">
-
   <h2 class="section-title">Resume & Skills </h2>
   <div class="divider"></div>
 
@@ -637,44 +648,40 @@
           <div class="timeline-date">2025 — Present</div>
           <div class="timeline-title">Bachelor of Science, Computer Engineering</div>
           <div class="timeline-sub">Georgia Institue of Technology</div>
-         <!-- <div class="timeline-desc">Relevant coursework: [Course 1], [Course 2], [Course 3]</div> -->
         </div> 
         <div class="timeline-item">
           <div class="timeline-date">2022 — Present</div>
           <div class="timeline-title">Bachelor of Science, Mathematics</div>
           <div class="timeline-sub">Clayton State University</div>
-          <!-- <div class="timeline-desc">Relevant coursework: [Course 1], [Course 2], [Course 3]</div> -->
         </div>
       </div>
 
       <h3 style="margin-top:2.5rem">Experience</h3>
       <div class="timeline">
         <div class="timeline-item">
-         <div class="timeline-date">May 2025</div>
-    <div class="timeline-title">Google Cloud Data Engineer Intern</div>
-    <div class="timeline-sub">Google</div>
-    <div class="timeline-desc">
-       <ul style="padding-left: 1.2rem;">
-        <li>Designed and implemented end-to-end data pipelines using AutoML Vision and Vertex AI to train and deploy an object detection model achieving 95% precision.</li>
-        <li>Built Python data processing scripts to generate and validate over 500 annotated image datasets for machine learning training.</li>
-      </ul>
-      </div>
-    </div>
-
-        
+          <div class="timeline-date">May 2025</div>
+          <div class="timeline-title">Google Cloud Data Engineer Intern</div>
+          <div class="timeline-sub">Google</div>
+          <div class="timeline-desc">
+            <ul style="padding-left: 1.2rem;">
+              <li>Designed and implemented end-to-end data pipelines using AutoML Vision and Vertex AI to train and deploy an object detection model achieving 95% precision.</li>
+              <li>Built Python data processing scripts to generate and validate over 500 annotated image datasets for machine learning training.</li>
+            </ul>
+          </div>
+        </div>
         <div class="timeline-item">
           <div class="timeline-date">January 2024 - May 2025</div>
-           <div class="timeline-title">Teaching Assistant</div>
-    <div class="timeline-sub">Department of Mathematics, Clayton State University</div>
-    <div class="timeline-desc">
-       <ul style="padding-left: 1.2rem;">
-        <li>Provided academic support to over 100 students in various math courses including Calculus I and Calculus II.</li>
-        <li>Actively participated in faculty meetings providing feedback on instructional methods.</li>
-      </ul>
+          <div class="timeline-title">Teaching Assistant</div>
+          <div class="timeline-sub">Department of Mathematics, Clayton State University</div>
+          <div class="timeline-desc">
+            <ul style="padding-left: 1.2rem;">
+              <li>Provided academic support to over 100 students in various math courses including Calculus I and Calculus II.</li>
+              <li>Actively participated in faculty meetings providing feedback on instructional methods.</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
-    </div>
-  </div>
 
     <!-- Right column -->
     <div class="resume-col">
@@ -719,11 +726,11 @@
     </div>
   </div>
 
-<div style="text-align: center; margin-top: 2.5rem;">
-  <a href="#" class="resume-download" style="margin-top: 0;">
-    ⬇ Download Full Resume
-  </a>
-</div>
+  <div style="text-align: center; margin-top: 2.5rem;">
+    <a href="#" class="resume-download" style="margin-top: 0;">
+      ⬇ Download Full Resume
+    </a>
+  </div>
 </section>
 
 <!-- GOALS -->
@@ -731,45 +738,65 @@
   <h2 class="section-title">Career Goals</h2>
   <div class="divider"></div>
 
-  <div class="goals-grid reveal">
-    <div class="goal-card">
-      <div class="goal-num">01</div>
-      <div class="goal-icon">🎯</div>
-      <div class="goal-title">Short-Term Goal</div>
-      <div class="goal-text">Land a meaningful internship or entry-level role in [your field] where I can apply my skills and keep growing in a real-world environment.</div>
-    </div>
-    <div class="goal-card">
-      <div class="goal-num">02</div>
-      <div class="goal-icon">🌱</div>
-      <div class="goal-title">Build Expertise</div>
-      <div class="goal-text">Deepen my knowledge in [specific area] and develop a specialization that sets me apart and allows me to create genuine impact.</div>
-    </div>
-    <div class="goal-card">
-      <div class="goal-num">03</div>
-      <div class="goal-icon">🤝</div>
-      <div class="goal-title">Collaborate & Lead</div>
-      <div class="goal-text">Work with diverse, talented teams and eventually step into leadership — bringing people together around ideas that matter.</div>
-    </div>
-    <div class="goal-card">
-      <div class="goal-num">04</div>
-      <div class="goal-icon">🌍</div>
-      <div class="goal-title">Make an Impact</div>
-      <div class="goal-text">Use my career to contribute to something larger — whether that's a community, an industry, or a cause I deeply care about.</div>
-    </div>
-    <div class="goal-card">
-      <div class="goal-num">05</div>
-      <div class="goal-icon">📚</div>
-      <div class="goal-title">Never Stop Learning</div>
-      <div class="goal-text">Commit to lifelong learning — staying curious, embracing new challenges, and adapting to whatever the future brings.</div>
-    </div>
-    <div class="goal-card">
-      <div class="goal-num">06</div>
-      <div class="goal-icon">✨</div>
-      <div class="goal-title">Long-Term Vision</div>
-      <div class="goal-text">In 10 years, I see myself [your big vision] — having built something I'm proud of and helping the next generation do the same.</div>
-    </div>
-  </div>
+  <div class="goal-timeline reveal">
 
+    <div class="gt-item">
+      <div class="gt-card">
+        <div class="gt-icon">🎯</div>
+        <div class="gt-label">Now</div>
+        <div class="gt-title">Short-Term Goal</div>
+        <div class="gt-text">Land a meaningful internship or entry-level role in [your field] where I can apply my skills and keep growing in a real-world environment.</div>
+      </div>
+    </div>
+
+    <div class="gt-item">
+      <div class="gt-card">
+        <div class="gt-icon">🌱</div>
+        <div class="gt-label">1–2 Years</div>
+        <div class="gt-title">Build Expertise</div>
+        <div class="gt-text">Deepen my knowledge in [specific area] and develop a specialization that sets me apart and allows me to create genuine impact.</div>
+      </div>
+    </div>
+
+    <div class="gt-item">
+      <div class="gt-card">
+        <div class="gt-icon">🤝</div>
+        <div class="gt-label">2–4 Years</div>
+        <div class="gt-title">Collaborate & Lead</div>
+        <div class="gt-text">Work with diverse, talented teams and eventually step into leadership — bringing people together around ideas that matter.</div>
+      </div>
+    </div>
+
+    <!--
+    <div class="gt-item">
+      <div class="gt-card">
+        <div class="gt-icon">🌍</div>
+        <div class="gt-label">4–6 Years</div>
+        <div class="gt-title">Make an Impact</div>
+        <div class="gt-text">Use my career to contribute to something larger — whether that's a community, an industry, or a cause I deeply care about.</div>
+      </div>
+    </div>
+
+    <div class="gt-item">
+      <div class="gt-card">
+        <div class="gt-icon">📚</div>
+        <div class="gt-label">Always</div>
+        <div class="gt-title">Never Stop Learning</div>
+        <div class="gt-text">Commit to lifelong learning — staying curious, embracing new challenges, and adapting to whatever the future brings.</div>
+      </div>
+    </div>
+
+    <div class="gt-item">
+      <div class="gt-card">
+        <div class="gt-icon">✨</div>
+        <div class="gt-label">10+ Years</div>
+        <div class="gt-title">Long-Term Vision</div>
+        <div class="gt-text">In 10 years, I see myself [your big vision] — having built something I'm proud of and helping the next generation do the same.</div>
+      </div>
+    </div>
+    -->
+
+  </div>
 </section>
 
 <footer>
@@ -785,6 +812,11 @@
     });
   }, { threshold: 0.05 });
   reveals.forEach(r => observer.observe(r));
+
+  // Timeline click toggle
+  document.querySelectorAll('.gt-item').forEach(item => {
+    item.addEventListener('click', () => item.classList.toggle('open'));
+  });
 </script>
 </body>
 </html>
