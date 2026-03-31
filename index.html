@@ -136,7 +136,7 @@
 
     /* Sections */
     section { min-height: 100vh; padding: 8rem 0 4rem; }
-    #about, #resume, #goals { padding: 6rem 5rem; }
+    #about, #resume, #projects, #goals { padding: 6rem 5rem; }
     
     .about-grid, .resume-layout, .goals-grid, .goals-quote, .section-label, .section-title, .divider, .resume-download {
       max-width: 1200px;
@@ -439,6 +439,33 @@
     }
     .resume-download:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(255,107,107,0.3); }
 
+    /* ─── PROJECTS ─── */
+    #projects {
+      border-top: 1px solid rgba(0,0,0,0.07);
+    }
+
+    .under-construction {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 5rem 2rem;
+      text-align: center;
+      border: 2px dashed rgba(0,0,0,0.12);
+      border-radius: 24px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .uc-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+    .uc-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .uc-text { font-size: 1rem; opacity: 0.55; line-height: 1.7; }
+
     /* ─── GOALS TIMELINE ─── */
     #goals {
       background: rgba(0,0,0,0.02);
@@ -447,100 +474,96 @@
 
     .goal-timeline {
       position: relative;
-      max-width: 800px;
+      max-width: 900px;
       margin: 0 auto;
-      padding: 1rem 0;
+      padding: 4rem 0 0;
     }
 
+    /* horizontal line */
     .goal-timeline::before {
       content: '';
       position: absolute;
-      left: 50%;
-      top: 0; bottom: 0;
-      width: 2px;
-      background: linear-gradient(to bottom, var(--coral), var(--purple), var(--teal));
-      transform: translateX(-50%);
+      top: 50px;
+      left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(to right, var(--coral), var(--purple), var(--teal));
+    }
+
+    .gt-items-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      position: relative;
     }
 
     .gt-item {
       display: flex;
-      justify-content: flex-end;
-      padding-right: calc(50% + 2.5rem);
-      margin-bottom: 2.5rem;
-      position: relative;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
       cursor: pointer;
-    }
-    .gt-item:nth-child(even) {
-      justify-content: flex-start;
-      padding-right: 0;
-      padding-left: calc(50% + 2.5rem);
+      position: relative;
+      padding-top: 0;
     }
 
-    .gt-item::after {
-      content: '';
-      position: absolute;
-      left: 50%;
-      top: 1.2rem;
-      transform: translateX(-50%);
+    /* dot on the line */
+    .gt-dot {
       width: 14px; height: 14px;
       border-radius: 50%;
       background: white;
       border: 3px solid var(--coral);
+      margin-bottom: 1.5rem;
       transition: transform 0.2s, background 0.2s;
+      flex-shrink: 0;
+      position: relative;
       z-index: 1;
     }
-    .gt-item:nth-child(2)::after { border-color: var(--teal); }
-    .gt-item:nth-child(3)::after { border-color: var(--purple); }
-    .gt-item:nth-child(4)::after { border-color: var(--yellow); }
-    .gt-item:nth-child(5)::after { border-color: var(--coral); }
-    .gt-item:nth-child(6)::after { border-color: var(--teal); }
+    .gt-item:nth-child(2) .gt-dot { border-color: var(--purple); }
+    .gt-item:nth-child(3) .gt-dot { border-color: var(--teal); }
+    .gt-item:nth-child(4) .gt-dot { border-color: var(--yellow); }
+    .gt-item:nth-child(5) .gt-dot { border-color: var(--coral); }
+    .gt-item:nth-child(6) .gt-dot { border-color: var(--teal); }
 
-    .gt-item:hover::after { transform: translateX(-50%) scale(1.4); background: var(--coral); }
-    .gt-item:nth-child(2):hover::after { background: var(--teal); }
-    .gt-item:nth-child(3):hover::after { background: var(--purple); }
-    .gt-item:nth-child(4):hover::after { background: var(--yellow); }
+    .gt-item:hover .gt-dot { transform: scale(1.4); background: var(--coral); }
+    .gt-item:nth-child(2):hover .gt-dot { background: var(--purple); }
+    .gt-item:nth-child(3):hover .gt-dot { background: var(--teal); }
+    .gt-item:nth-child(4):hover .gt-dot { background: var(--yellow); }
 
     .gt-card {
       background: rgba(255,255,255,0.7);
       border: 1px solid rgba(0,0,0,0.08);
       border-radius: 16px;
-      padding: 1.5rem 1.8rem;
-      max-width: 340px;
+      padding: 1.2rem 1.2rem;
+      width: 100%;
       transition: transform 0.25s, box-shadow 0.25s;
-      position: relative;
+      text-align: center;
     }
     .gt-item:hover .gt-card {
       transform: translateY(-4px);
       box-shadow: 0 12px 30px rgba(0,0,0,0.1);
     }
 
-    .gt-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
     .gt-label {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--coral);
       margin-bottom: 0.3rem;
     }
-    .gt-item:nth-child(2) .gt-label { color: var(--teal); }
-    .gt-item:nth-child(3) .gt-label { color: var(--purple); }
+    .gt-item:nth-child(2) .gt-label { color: var(--purple); }
+    .gt-item:nth-child(3) .gt-label { color: var(--teal); }
     .gt-item:nth-child(4) .gt-label { color: var(--yellow); }
     .gt-item:nth-child(5) .gt-label { color: var(--coral); }
     .gt-item:nth-child(6) .gt-label { color: var(--teal); }
 
-    .gt-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; margin-bottom: 0.5rem; }
-    .gt-text { font-size: 0.88rem; opacity: 0; line-height: 1.7; max-height: 0; overflow: hidden; transition: max-height 0.4s ease, opacity 0.3s; }
+    .gt-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; margin-bottom: 0.4rem; }
+    .gt-text { font-size: 0.82rem; opacity: 0; line-height: 1.6; max-height: 0; overflow: hidden; transition: max-height 0.4s ease, opacity 0.3s; }
     .gt-item:hover .gt-text, .gt-item.open .gt-text { max-height: 200px; opacity: 0.65; }
 
     @media (max-width: 650px) {
-      .goal-timeline::before { left: 1rem; }
-      .gt-item, .gt-item:nth-child(even) {
-        justify-content: flex-start;
-        padding-left: 3.5rem;
-        padding-right: 0;
-      }
-      .gt-item::after, .gt-item:nth-child(even)::after { left: 1rem; }
-      .gt-card { max-width: 100%; }
+      .gt-items-row { flex-direction: column; }
+      .goal-timeline::before { display: none; }
+      .gt-dot { margin-bottom: 0.75rem; }
     }
 
     /* ─── FOOTER ─── */
@@ -586,6 +609,7 @@
     <li><a href="#home">Home</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#resume">Resume</a></li>
+    <li><a href="#projects">Projects</a></li>
     <li><a href="#goals">Goals</a></li>
   </ul>
 </nav>
@@ -733,37 +757,83 @@
   </div>
 </section>
 
+<!-- PROJECTS -->
+<section id="projects">
+  <h2 class="section-title">Projects</h2>
+  <div class="divider"></div>
+
+  <div class="under-construction reveal">
+    <div class="uc-icon">🚧</div>
+    <h3 class="uc-title">Under Construction</h3>
+    <p class="uc-text">Projects are on their way — check back soon!</p>
+  </div>
+</section>
+
 <!-- GOALS -->
 <section id="goals">
   <h2 class="section-title">Career Goals</h2>
   <div class="divider"></div>
 
   <div class="goal-timeline reveal">
+    <div class="gt-items-row">
 
     <div class="gt-item">
+      <div class="gt-dot"></div>
       <div class="gt-card">
-        <div class="gt-label">Summer 2026</div>
-        <div class="gt-title">Meaningful Internship</div>
+        <div class="gt-label">Now</div>
+        <div class="gt-title">Short-Term Goal</div>
         <div class="gt-text">Land a meaningful internship or entry-level role in [your field] where I can apply my skills and keep growing in a real-world environment.</div>
       </div>
     </div>
 
     <div class="gt-item">
+      <div class="gt-dot"></div>
       <div class="gt-card">
-        <div class="gt-label">December 2027</div>
-        <div class="gt-title">Graduate</div>
+        <div class="gt-label">1–2 Years</div>
+        <div class="gt-title">Build Expertise</div>
         <div class="gt-text">Deepen my knowledge in [specific area] and develop a specialization that sets me apart and allows me to create genuine impact.</div>
       </div>
     </div>
 
     <div class="gt-item">
+      <div class="gt-dot"></div>
       <div class="gt-card">
-        <div class="gt-label">2028</div>
-        <div class="gt-title">Begin Career</div>
+        <div class="gt-label">2–4 Years</div>
+        <div class="gt-title">Collaborate & Lead</div>
         <div class="gt-text">Work with diverse, talented teams and eventually step into leadership — bringing people together around ideas that matter.</div>
       </div>
     </div>
 
+    </div><!-- end gt-items-row -->
+
+    <!--
+    <div class="gt-item">
+      <div class="gt-dot"></div>
+      <div class="gt-card">
+        <div class="gt-label">4–6 Years</div>
+        <div class="gt-title">Make an Impact</div>
+        <div class="gt-text">Use my career to contribute to something larger — whether that's a community, an industry, or a cause I deeply care about.</div>
+      </div>
+    </div>
+
+    <div class="gt-item">
+      <div class="gt-dot"></div>
+      <div class="gt-card">
+        <div class="gt-label">Always</div>
+        <div class="gt-title">Never Stop Learning</div>
+        <div class="gt-text">Commit to lifelong learning — staying curious, embracing new challenges, and adapting to whatever the future brings.</div>
+      </div>
+    </div>
+
+    <div class="gt-item">
+      <div class="gt-dot"></div>
+      <div class="gt-card">
+        <div class="gt-label">10+ Years</div>
+        <div class="gt-title">Long-Term Vision</div>
+        <div class="gt-text">In 10 years, I see myself [your big vision] — having built something I'm proud of and helping the next generation do the same.</div>
+      </div>
+    </div>
+    -->
 
   </div>
 </section>
