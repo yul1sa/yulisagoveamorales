@@ -18,7 +18,6 @@
     html { scroll-behavior: smooth; background: var(--bg); }
     body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--ink); overflow-x: hidden; }
 
-    /* ── TYPOGRAPHY FIX ── */
     h1, h2, h3 { display: block; overflow: visible; line-height: 1.5; padding-bottom: 0.25em; }
 
     /* ── NAV ── */
@@ -64,7 +63,6 @@
     @keyframes float { 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-30px) scale(1.05)} }
 
     .hero-content { position: relative; z-index: 2; max-width: 800px; display: flex; flex-direction: column; align-items: center; }
-
     h1 { font-family: 'Syne', sans-serif; font-size: clamp(3rem, 8vw, 6.5rem); font-weight: 800; animation: fadeUp 0.6s 0.1s ease both; }
     .h1-line2 {
       background: linear-gradient(130deg, var(--coral), var(--purple));
@@ -113,23 +111,40 @@
     .timeline-sub { font-size: 0.85rem; opacity: 0.5; margin-bottom: 0.5rem; }
     .timeline-desc { font-size: 0.9rem; opacity: 0.7; line-height: 1.6; }
 
-    .skills-grid { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1rem; }
-    .skill-tag { padding: 0.4rem 1rem; border-radius: 100px; font-size: 0.8rem; font-weight: 500; background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.1); transition: all 0.2s; }
-    .skill-tag:hover { background: rgba(132,220,198,0.15); border-color: var(--teal); color: var(--teal); }
+    /* ── SKILLS (line/dot format) ── */
+    .skills-list { display: flex; flex-direction: column; margin-top: 1rem; border-left: 2px solid rgba(0,0,0,0.1); }
+    .skills-category { padding: 0.5rem 0 0.5rem 1rem; position: relative; transition: opacity 0.2s; }
+    .skills-category:hover { opacity: 1; }
+    .skills-category-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--coral); flex-shrink: 0; position: absolute; left: -6px; top: 50%; transform: translateY(-50%); transition: transform 0.25s ease; }
+    .skills-category:nth-child(2) .skills-category-dot { background: var(--purple); }
+    .skills-category:nth-child(3) .skills-category-dot { background: var(--teal); }
+    .skills-category:hover .skills-category-dot { transform: translateY(-50%) scale(1.5); }
+    .skills-category-label { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.8rem; color: var(--ink); margin-bottom: 0.3rem; }
+    .skills-category-items { font-size: 0.82rem; opacity: 0.7; line-height: 1.6; }
 
     .resume-download { display: inline-flex; margin: 2.5rem auto 0; padding: 0.85rem 2rem; background: linear-gradient(135deg, var(--coral), var(--purple)); border-radius: 100px; text-decoration: none; color: white; font-weight: 500; font-size: 0.95rem; transition: transform 0.2s, box-shadow 0.2s; }
     .resume-download:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(255,93,143,0.3); }
 
-    /* ── FLIP CARDS (courses) ── */
-    .courses-grid { display: flex; flex-direction: column; gap: 8px; margin-top: 1rem; }
-    .flip-wrap { height: 52px; perspective: 800px; cursor: pointer; }
-    .flip-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.45s ease; }
-    .flip-wrap:hover .flip-inner { transform: rotateY(180deg); }
-    .flip-front, .flip-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08); display: flex; align-items: center; padding: 0 14px; }
-    .flip-front { background: rgba(255,255,255,0.6); }
-    .flip-back { background: rgba(255,255,255,0.9); transform: rotateY(180deg); }
-    .flip-front-title { font-family: 'Outfit', sans-serif; font-size: 0.88rem; font-weight: 600; color: var(--ink); }
-    .flip-back-text { font-size: 0.78rem; color: var(--ink); opacity: 0.7; line-height: 1.5; }
+    /* ── COURSES LIST ── */
+    .courses-list { display: flex; flex-direction: column; margin-top: 1rem; border-left: 2px solid rgba(0,0,0,0.1); }
+    .course-list-item { padding: 0.5rem 0 0.5rem 1rem; position: relative; font-size: 0.88rem; opacity: 0.8; transition: opacity 0.2s; }
+    .course-list-item:hover { opacity: 1; }
+    .course-list-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--coral); position: absolute; left: -6px; top: 50%; transform: translateY(-50%); transition: transform 0.25s ease; }
+    .course-list-item:nth-child(2) .course-list-dot { background: var(--purple); }
+    .course-list-item:hover .course-list-dot { transform: translateY(-50%) scale(1.5); }
+
+    /* ── LEADERSHIP FLIP CARDS ── */
+    .leadership-grid { display: flex; flex-direction: column; gap: 8px; margin-top: 1rem; }
+    .lead-flip-wrap { height: 60px; perspective: 800px; cursor: pointer; }
+    .lead-flip-wrap.open .lead-flip-inner { transform: rotateY(180deg); }
+    .lead-flip-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.45s ease; }
+    .lead-flip-wrap:hover .lead-flip-inner { transform: rotateY(180deg); }
+    .lead-flip-front, .lead-flip-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08); display: flex; align-items: center; padding: 0 14px; }
+    .lead-flip-front { background: rgba(255,255,255,0.6); flex-direction: column; align-items: flex-start; justify-content: center; gap: 2px; }
+    .lead-flip-back { background: rgba(255,255,255,0.9); transform: rotateY(180deg); }
+    .lead-flip-title { font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 600; color: var(--ink); }
+    .lead-flip-sub { font-size: 0.72rem; opacity: 0.5; }
+    .lead-flip-back-text { font-size: 0.78rem; color: var(--ink); opacity: 0.7; line-height: 1.5; }
 
     /* ── LANGUAGES ── */
     .lang-list { display: flex; flex-direction: column; margin-top: 1rem; }
@@ -138,12 +153,13 @@
     .lang-list-name { font-family: 'Outfit', sans-serif; font-size: 0.88rem; font-weight: 500; }
     .lang-list-badge { font-size: 0.75rem; padding: 2px 10px; border-radius: 100px; background: rgba(0,0,0,0.05); opacity: 0.6; }
 
-    /* ── CLUBS / AWARDS ── */
+    /* ── CLUBS ── */
     .clubs-grid { display: flex; flex-direction: column; margin-top: 1rem; border-left: 2px solid rgba(0,0,0,0.1); }
     .club-item { display: flex; align-items: center; gap: 0.75rem; font-size: 0.88rem; opacity: 0.8; padding: 0.6rem 0 0.6rem 1rem; position: relative; transition: opacity 0.2s; }
     .club-item:hover { opacity: 1; }
     .club-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--coral); flex-shrink: 0; position: absolute; left: -6px; top: 50%; transform: translateY(-50%); transition: transform 0.25s ease; }
     .club-item:nth-child(2) .club-dot { background: var(--purple); }
+    .club-item:nth-child(3) .club-dot { background: var(--teal); }
     .club-item:hover .club-dot { transform: translateY(-50%) scale(1.5); }
 
     /* ── PROJECTS ── */
@@ -238,7 +254,7 @@
   <h2 class="section-title">About Me</h2>
   <div class="about-hero reveal">
     <div class="about-hero-text">
-      <p class="about-bio">I'm a dual-degree student pursuing a Bachelor of Science in Computer Engineering at Georgia Institute of 
+      <p class="about-bio">I'm a dual-degree student pursuing a Bachelor of Science in Computer Engineering at Georgia Institute of
         Technology and a Bachelor of Science in Mathematics at Clayton State University. i will write more here lol i just cant think of interesting stuff about myself :(
       </p>
     </div>
@@ -309,30 +325,35 @@
 
     <!-- RIGHT COLUMN -->
     <div class="resume-col">
+
       <h3>Technical Skills</h3>
-      <div class="skills-grid">
-        <span class="skill-tag">Java</span>
-        <span class="skill-tag">Python</span>
-        <span class="skill-tag">SQL</span>
-        <span class="skill-tag">MATLAB</span>
-        <span class="skill-tag">HTML / CSS</span>
-        <span class="skill-tag">GCP</span>
-        <span class="skill-tag">GitHub</span>
+      <div class="skills-list">
+        <div class="skills-category">
+          <div class="skills-category-dot"></div>
+          <div class="skills-category-label">Languages</div>
+          <div class="skills-category-items">Java, Python, SQL, MATLAB, HTML / CSS</div>
+        </div>
+        <div class="skills-category">
+          <div class="skills-category-dot"></div>
+          <div class="skills-category-label">Tools & Platforms</div>
+          <div class="skills-category-items">GCP, GitHub, Vertex AI, AutoML Vision</div>
+        </div>
+        <div class="skills-category">
+          <div class="skills-category-dot"></div>
+          <div class="skills-category-label">Concepts</div>
+          <div class="skills-category-items">Machine Learning, Data Pipelines, Statistical Modeling, ARIMA, ANN</div>
+        </div>
       </div>
 
       <h3 style="margin-top:2.5rem">Relevant Courses</h3>
-      <div class="courses-grid">
-        <div class="flip-wrap">
-          <div class="flip-inner">
-            <div class="flip-front"><span class="flip-front-title">Data Structures and Algorithms</span></div>
-            <div class="flip-back"><span class="flip-back-text">Analysis and implementation of fundamental data structures and algorithms; arrays, linked lists, stacks, queues, trees, graphs, and hash tables.</span></div>
-          </div>
+      <div class="courses-list">
+        <div class="course-list-item">
+          <div class="course-list-dot"></div>
+          Data Structures and Algorithms
         </div>
-        <div class="flip-wrap">
-          <div class="flip-inner">
-            <div class="flip-front"><span class="flip-front-title">Applied Statistics</span></div>
-            <div class="flip-back"><span class="flip-back-text">Regression modeling, hypothesis testing, statistical inference, probability distributions, and exploratory data analysis on real-world datasets.</span></div>
-          </div>
+        <div class="course-list-item">
+          <div class="course-list-dot"></div>
+          Applied Statistics
         </div>
       </div>
 
@@ -353,20 +374,42 @@
       </div>
 
       <h3 style="margin-top:2.5rem">Leadership & Accomplishments</h3>
-      <div class="clubs-grid">
-        <div class="club-item">
-          <div class="club-dot"></div>
-          <span>Coca-Cola Scholar</span>
+      <div class="leadership-grid">
+        <div class="lead-flip-wrap" onclick="this.classList.toggle('open')">
+          <div class="lead-flip-inner">
+            <div class="lead-flip-front">
+              <span class="lead-flip-title">Coca-Cola Scholar</span>
+            </div>
+            <div class="lead-flip-back">
+              <span class="lead-flip-back-text">Recipient of the First Generation Coca-Cola Scholars Foundation award recognizing academic achievement, leadership, and first-gen status.</span>
+            </div>
+          </div>
         </div>
-        <div class="club-item">
-          <div class="club-dot"></div>
-          <span>Laker STEM Sisters, President & Co-Founder · <span style="opacity:0.5;font-size:0.8em;">2023 - 2025</span></span>
+        <div class="lead-flip-wrap" onclick="this.classList.toggle('open')">
+          <div class="lead-flip-inner">
+            <div class="lead-flip-front">
+              <span class="lead-flip-title">Laker STEM Sisters</span>
+              <span class="lead-flip-sub">2023 – 2025</span>
+            </div>
+            <div class="lead-flip-back">
+              <span class="lead-flip-back-text">Co-founded and led an organization supporting women in STEM at Clayton State University, organizing events and mentorship programs.</span>
+            </div>
+          </div>
         </div>
-        <div class="club-item">
-          <div class="club-dot"></div>
-          <span>Girls ReCode, Vice-President & Co-Founder · <span style="opacity:0.5;font-size:0.8em;">2021 - 2022</span></span>
+        <div class="lead-flip-wrap" onclick="this.classList.toggle('open')">
+          <div class="lead-flip-inner">
+            <div class="lead-flip-front">
+              <span class="lead-flip-title">Girls ReCode</span>
+              <span class="lead-flip-sub">2021 – 2022</span>
+            </div>
+            <div class="lead-flip-back">
+              <span class="lead-flip-back-text">Co-founded a local chaper of Girls ReCode. This organiazation provided initiative 
+                aimed at introducing young women to programming and technology through workshops and mentorship.</span>
+            </div>
+          </div>
         </div>
       </div>
+
     </div>
 
   </div>
