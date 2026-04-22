@@ -288,9 +288,9 @@
   <h2 class="section-title">About Me</h2>
   <div class="about-hero reveal">
     <div class="about-hero-text">
-      <p class="about-bio">I'm a dual-degree student pursuing a Bachelor of Science in Computer Engineering at Georgia Institute of
-        Technology and a Bachelor of Science in Mathematics at Clayton State University. i will write more here lol i just cant think of interesting stuff about myself :(
-      </p>
+      <p class="about-bio">I'm a dual-degree student pursuing a Bachelor of Science in Computer Engineering at Georgia Institute of Technology and a Bachelor of Science in Mathematics at Clayton State University, with an expected graduation in December 2027. My projects and research have been a mixture of data engineering, machine learning, and statistical modeling. I have hands-on experience building pipelines using Google Cloud Platform, Python, and SQL.</p>
+
+      <p class="about-bio" style="margin-top: 1rem;">Outside of academics, I enjoy reading, baking, and spending time with my family.</p>
     </div>
     <div class="about-photo-wrap">
       <img src="Picture.jpg" alt="Yulisa" class="about-photo"/>
@@ -455,10 +455,6 @@
   <h2 class="section-title">Projects</h2>
   <div class="proj-slider-wrap reveal">
 
-    <div class="proj-header">
-      <button class="proj-tab active" onclick="switchProj(0)">Mortality Forecasting</button>
-      <button class="proj-tab" onclick="switchProj(1)">+ Add Project</button>
-    </div>
 
     <!-- PROJECT 1 -->
     <div class="proj-card-outer" id="proj-0">
@@ -466,28 +462,15 @@
         <div class="proj-card-info">
           <div class="proj-badge">Research · 2nd Place — STEM Symposium</div>
           <div class="proj-card-title">A Metro Atlanta Study on Mortality Using Lee-Carter Modeling</div>
-          <div class="proj-card-desc">
-            The objective was to predict future mortality rates for different age groups in the Metro Atlanta area using a Lee-Carter (LC) Model, 
-            using both Autoregressive Integrated Moving Average (ARIMA) and  Artificial Neural Network (ANN).
-            The models are built on aggregate county-level mortality data from the CDC WONDER Database using years 1979 to 2015. 
-            Both models are built using data from 1979-2008, and we reserve years 2009-2015 for validation. 
-            This projects compares performance and error metrics for both models and discuss the implications of these results.
-          </div>
-          <div class="proj-tags">
-            <span class="proj-tag">Python</span>
-            <span class="proj-tag">ARIMA</span>
-            <span class="proj-tag">ANN</span>
-            <span class="proj-tag">Lee-Carter Model</span>
-            <span class="proj-tag">Statistical Modeling</span>
-            <span class="proj-tag">CDC WONDER</span>
-          </div>
+          <div class="proj-card-desc">Our objective is to predict future mortality rates for different age groups in the Metro Atlanta area using a Lee-Carter (LC) Model. We implement Lee-Carter using both Autoregressive Integrated Moving Average (ARIMA) and Artificial Neural Network (ANN). Our models are built on aggregate county-level mortality data from the CDC WONDER Database using years 1979 to 2015. Both models are built using data from 1979–2008, and we reserve years 2009–2015 for validation. We compare performance and error metrics for both models and discuss the implications of these results.</div>
+
         </div>
       </div>
 
       <div class="proj-slides">
         <div class="proj-slide-track" id="proj-track-0">
           <div class="proj-slide">
-            <img src="graph.png" alt="Forecasted vs Actual Log Mortality"/>
+            <img src="forecast_chart.png" alt="Forecasted vs Actual Log Mortality"/>
           </div>
           <div class="proj-slide">
             <div class="proj-table-wrap" style="padding: 1rem 0;">
@@ -527,11 +510,6 @@
         <button class="proj-slide-dot" id="dot-0-1" onclick="goSlide(0,1)"></button>
         <button class="proj-slide-arrow" onclick="slideProj(0,1)">›</button>
       </div>
-    </div>
-
-    <!-- PROJECT 2 placeholder -->
-    <div class="proj-card-outer" id="proj-1" style="display:none; text-align:center; padding: 4rem 2rem;">
-      <p style="opacity:0.4; font-size:0.95rem;">Your next project goes here — add a new tab and card when you're ready!</p>
     </div>
 
   </div>
