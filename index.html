@@ -123,8 +123,8 @@
     .skills-category:nth-child(2) .skills-category-dot { background: var(--purple); }
     .skills-category:nth-child(3) .skills-category-dot { background: var(--teal); }
     .skills-category:hover .skills-category-dot { transform: translateY(-50%) scale(1.5); }
-    .skills-category-label { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--ink); margin-bottom: 0.3rem; }
-    .skills-category-items { font-size: 0.8rem; opacity: 0.7; line-height: 1.6; }
+    .skills-category-label { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.8rem; color: var(--ink); margin-bottom: 0.3rem; }
+    .skills-category-items { font-size: 0.82rem; opacity: 0.7; line-height: 1.6; }
 
     .resume-download { display: inline-flex; margin: 2.5rem auto 0; padding: 0.85rem 2rem; background: linear-gradient(135deg, var(--coral), var(--purple)); border-radius: 100px; text-decoration: none; color: white; font-weight: 500; font-size: 0.95rem; transition: transform 0.2s, box-shadow 0.2s; }
     .resume-download:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(255,93,143,0.3); }
@@ -166,9 +166,39 @@
     .club-item:nth-child(3) .club-dot { background: var(--teal); }
     .club-item:hover .club-dot { transform: translateY(-50%) scale(1.5); }
 
-    /* ── PROJECTS ── */
-    .under-construction { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 5rem 2rem; text-align: center; border: 2px dashed rgba(0,0,0,0.12); border-radius: 24px; max-width: 500px; margin: 0 auto; }
-    .uc-title { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.5rem; }
+    /* ── PROJECTS SLIDER ── */
+    .proj-slider-wrap { max-width: 900px; margin: 0 auto; }
+
+    .proj-header { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .proj-tab { font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 600; padding: 0.5rem 1.2rem; border-radius: 100px; border: 1px solid rgba(0,0,0,0.12); background: transparent; color: var(--ink); opacity: 0.5; cursor: pointer; transition: all 0.2s; }
+    .proj-tab.active { background: var(--coral); color: white; border-color: var(--coral); opacity: 1; }
+
+    .proj-card-outer { background: rgba(255,255,255,0.7); border: 1px solid rgba(0,0,0,0.08); border-radius: 20px; padding: 2rem; }
+    .proj-card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 2rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .proj-card-info { flex: 1; min-width: 200px; }
+    .proj-card-title { font-family: 'Outfit', sans-serif; font-size: 1.3rem; font-weight: 800; margin-bottom: 0.5rem; line-height: 1.3; }
+    .proj-card-desc { font-size: 0.9rem; opacity: 0.7; line-height: 1.7; margin-bottom: 1rem; }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .proj-tag { font-size: 0.75rem; padding: 0.25rem 0.75rem; border-radius: 100px; background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.1); }
+    .proj-badge { display: inline-block; font-size: 0.72rem; padding: 0.25rem 0.75rem; border-radius: 100px; background: rgba(255,93,143,0.1); color: var(--coral); border: 1px solid var(--coral); margin-bottom: 0.75rem; font-weight: 600; letter-spacing: 0.05em; }
+
+    .proj-slides { position: relative; overflow: hidden; border-radius: 12px; }
+    .proj-slide-track { display: flex; transition: transform 0.4s ease; }
+    .proj-slide { min-width: 100%; }
+    .proj-slide img { width: 100%; border-radius: 12px; display: block; max-height: 380px; object-fit: contain; background: #111; }
+
+    .proj-table-wrap { overflow-x: auto; }
+    .proj-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    .proj-table th { font-family: 'Outfit', sans-serif; font-weight: 700; padding: 0.6rem 0.8rem; text-align: left; border-bottom: 2px solid rgba(0,0,0,0.1); font-size: 0.78rem; letter-spacing: 0.04em; }
+    .proj-table td { padding: 0.5rem 0.8rem; border-bottom: 1px solid rgba(0,0,0,0.06); opacity: 0.75; }
+    .proj-table tr:last-child td { border-bottom: none; }
+    .proj-table tr:hover td { background: rgba(255,93,143,0.04); opacity: 1; }
+
+    .proj-slide-nav { display: flex; justify-content: center; align-items: center; gap: 0.5rem; margin-top: 1rem; }
+    .proj-slide-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(0,0,0,0.15); cursor: pointer; border: none; padding: 0; transition: background 0.2s; }
+    .proj-slide-dot.active { background: var(--coral); }
+    .proj-slide-arrow { background: none; border: 1px solid rgba(0,0,0,0.12); border-radius: 100px; padding: 0.3rem 0.9rem; cursor: pointer; font-size: 1rem; color: var(--ink); opacity: 0.6; transition: opacity 0.2s; }
+    .proj-slide-arrow:hover { opacity: 1; }
 
     /* ── GOALS TIMELINE ── */
     .goal-timeline { position: relative; max-width: 900px; margin: 0 auto; padding: 4rem 0 0; }
@@ -245,8 +275,7 @@
       <span style="font-size:0.6em;">Hi, I'm</span><br>
       <span class="h1-line2">Yulisa</span>
     </h1>
-    <p class="hero-sub">
-      I'm a Computer Engineering and Mathematics student with experience in machine learning pipelines, cloud computing, and data modeling using GCP, ARIMA, and ANN. </p>
+    <p class="hero-sub">I'm a Computer Engineering and Mathematics student with experience in machine learning pipelines, cloud computing, and data modeling using GCP, ARIMA, and ANN. I'm looking to bring that foundation to a data engineering or actuarial internship in Summer 2026.</p>
     <div class="hero-cta">
       <a href="#about" class="btn btn-primary">Get to know me →</a>
       <a href="#resume" class="btn btn-ghost">View Resume</a>
@@ -259,16 +288,9 @@
   <h2 class="section-title">About Me</h2>
   <div class="about-hero reveal">
     <div class="about-hero-text">
-      <p class="about-bio">I'm a first-generation Mexican-American who grew up between two countries and two cultures. 
-        Moving to the U.S. at 8 years old gave me a perspective that pushes me to be curious, driven, and never afraid of a challenge.</p>
-
-      <p class="about-bio" style="margin-top: 1rem;">I am currently a dual-degree student pursuing a 
-        Bachelor of Science in Computer Engineering at Georgia Institute of Technology and a Bachelor of Science in Mathematics at Clayton State University,
-        with an expected graduation on December 2027. My projects and research have been a mixture of data engineering, machine learning, and statistical modeling. 
-        I have hands-on experience building pipelines using Google Cloud Platform, Python, and SQL.</p>
-
-        <p class="about-bio" style="margin-top: 1rem;">Outside of academics, I enjoy reading, baking, and spending time with my family.</p>
-      
+      <p class="about-bio">I'm a dual-degree student pursuing a Bachelor of Science in Computer Engineering at Georgia Institute of
+        Technology and a Bachelor of Science in Mathematics at Clayton State University. i will write more here lol i just cant think of interesting stuff about myself :(
+      </p>
     </div>
     <div class="about-photo-wrap">
       <img src="Picture.jpg" alt="Yulisa" class="about-photo"/>
@@ -299,14 +321,13 @@
       <h3 style="margin-top:2.5rem">Experience</h3>
       <div class="timeline">
         <div class="timeline-item">
-          <div class="timeline-date">April 2025 - May 2025</div>
+          <div class="timeline-date">May 2025</div>
           <div class="timeline-title">Google Cloud Data Engineer Intern</div>
           <div class="timeline-sub">Google</div>
           <div class="timeline-desc">
             <ul style="padding-left:1.2rem;">
-              <li>Built Python data processing scripts to validate over 500 annotated image datasets for machine learning training.</li>
-              <li>Monitored model training jobs on Vertex AI logging performance metrics to optimize pipeline efficiency.</li>
-              <li>Designed and implemented end-to-end data pipelines using AutoML Vision and Vertex AI to train and deploy multiple object detection models achieving 95% precision.</li>
+              <li>Designed and implemented end-to-end data pipelines using AutoML Vision and Vertex AI to train and deploy an object detection model achieving 95% precision.</li>
+              <li>Built Python data processing scripts to generate and validate over 500 annotated image datasets for machine learning training.</li>
             </ul>
           </div>
         </div>
@@ -317,8 +338,7 @@
           <div class="timeline-desc">
             <ul style="padding-left:1.2rem;">
               <li>Provided academic support to over 100 students in various math courses including Calculus I and Calculus II.</li>
-              <li>Developed supplementary study materials including practice problems, study guides, and solution sheets.</li>
-              <li>Collaborated with professors to identify struggling students and coordinate targeted interventions, improving course outcomes.</li>
+              <li>Actively participated in faculty meetings providing feedback on instructional methods.</li>
             </ul>
           </div>
         </div>
@@ -344,18 +364,18 @@
       <div class="skills-list">
         <div class="skills-category">
           <div class="skills-category-dot"></div>
-          <div class="skills-category-label">Programming</div>
-          <div class="skills-category-items"> Java, Python, SQL, MATLAB, HTML / CSS</div>
+          <div class="skills-category-label">Languages</div>
+          <div class="skills-category-items">Java, Python, SQL, MATLAB, HTML / CSS</div>
         </div>
         <div class="skills-category">
           <div class="skills-category-dot"></div>
           <div class="skills-category-label">Tools & Platforms</div>
-          <div class="skills-category-items">Google Cloud Platform, GitHub</div>
+          <div class="skills-category-items">GCP, GitHub, Vertex AI, AutoML Vision</div>
         </div>
         <div class="skills-category">
           <div class="skills-category-dot"></div>
-          <div class="skills-category-label">Software</div>
-          <div class="skills-category-items">Microsoft Office Suite, Pandas, Matplotlib, Minitab</div>
+          <div class="skills-category-label">Concepts</div>
+          <div class="skills-category-items">Machine Learning, Data Pipelines, Statistical Modeling, ARIMA, ANN</div>
         </div>
       </div>
 
@@ -395,14 +415,14 @@
               <span class="lead-flip-title">Coca-Cola Scholar</span>
             </div>
             <div class="lead-flip-back">
-              <span class="lead-flip-back-text">Recipient of the First Generation Coca-Cola Scholars Foundation award and scholarhsip recognizing academic achievement, leadership, and first-gen status.</span>
+              <span class="lead-flip-back-text">Recipient of the prestigious Coca-Cola Scholars Foundation award, recognizing academic achievement and leadership.</span>
             </div>
           </div>
         </div>
         <div class="lead-flip-wrap" onclick="this.classList.toggle('open')">
           <div class="lead-flip-inner">
             <div class="lead-flip-front">
-              <span class="lead-flip-title">Laker STEM Sisters</span>
+              <span class="lead-flip-title">Laker STEM Sisters — President & Co-Founder</span>
               <span class="lead-flip-sub">2023 – 2025</span>
             </div>
             <div class="lead-flip-back">
@@ -413,12 +433,11 @@
         <div class="lead-flip-wrap" onclick="this.classList.toggle('open')">
           <div class="lead-flip-inner">
             <div class="lead-flip-front">
-              <span class="lead-flip-title">Girls ReCode</span>
+              <span class="lead-flip-title">Girls ReCode — Vice President & Co-Founder</span>
               <span class="lead-flip-sub">2021 – 2022</span>
             </div>
             <div class="lead-flip-back">
-              <span class="lead-flip-back-text">Co-founded a local chaper of Girls ReCode. This organiazation provided initiative 
-                aimed at introducing young women to programming and technology through workshops and mentorship.</span>
+              <span class="lead-flip-back-text">Co-founded a coding initiative aimed at introducing young women to programming and technology through workshops and mentorship.</span>
             </div>
           </div>
         </div>
@@ -434,8 +453,81 @@
 
 <section id="projects">
   <h2 class="section-title">Projects</h2>
-  <div class="under-construction reveal">
-    <h3 class="uc-title">Under Construction</h3>
+  <div class="proj-slider-wrap reveal">
+
+    <div class="proj-header">
+      <button class="proj-tab active" onclick="switchProj(0)">Mortality Forecasting</button>
+      <button class="proj-tab" onclick="switchProj(1)">+ Add Project</button>
+    </div>
+
+    <!-- PROJECT 1 -->
+    <div class="proj-card-outer" id="proj-0">
+      <div class="proj-card-top">
+        <div class="proj-card-info">
+          <div class="proj-badge">Research · 2nd Place — STEM Symposium</div>
+          <div class="proj-card-title">A Metro Atlanta Study on Mortality Using Lee-Carter Modeling</div>
+          <div class="proj-card-desc">Predicted future mortality rates for different age groups in the Metro Atlanta area using the Lee-Carter model, implemented with both ARIMA and Artificial Neural Network approaches. Built on CDC WONDER county-level mortality data from 1979–2015.</div>
+          <div class="proj-tags">
+            <span class="proj-tag">Python</span>
+            <span class="proj-tag">ARIMA</span>
+            <span class="proj-tag">ANN</span>
+            <span class="proj-tag">Lee-Carter Model</span>
+            <span class="proj-tag">Statistical Modeling</span>
+            <span class="proj-tag">CDC WONDER</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="proj-slides">
+        <div class="proj-slide-track" id="proj-track-0">
+          <div class="proj-slide">
+            <img src="plot.png" alt="Forecasted vs Actual Log Mortality"/>
+          </div>
+          <div class="proj-slide">
+            <div class="proj-table-wrap" style="padding: 1rem 0;">
+              <table class="proj-table">
+                <thead>
+                  <tr>
+                    <th>Age Group</th>
+                    <th>ARIMA MAE</th>
+                    <th>ANN MAE</th>
+                    <th>ARIMA RMSE</th>
+                    <th>ANN RMSE</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>&lt; 1</td><td>0.1223</td><td>0.1219</td><td>0.1409</td><td>0.1405</td></tr>
+                  <tr><td>1–4</td><td>0.0888</td><td>0.0877</td><td>0.1264</td><td>0.1238</td></tr>
+                  <tr><td>5–9</td><td>0.1795</td><td>0.1765</td><td>0.2169</td><td>0.2156</td></tr>
+                  <tr><td>10–14</td><td>0.1207</td><td>0.1191</td><td>0.1458</td><td>0.1455</td></tr>
+                  <tr><td>15–19</td><td>0.3109</td><td>0.3136</td><td>0.3293</td><td>0.3311</td></tr>
+                  <tr><td>20–24</td><td>0.1025</td><td>0.1025</td><td>0.1112</td><td>0.1118</td></tr>
+                  <tr><td>25–34</td><td>0.0756</td><td>0.0746</td><td>0.0988</td><td>0.0971</td></tr>
+                  <tr><td>35–44</td><td>0.1494</td><td>0.1516</td><td>0.1577</td><td>0.1598</td></tr>
+                  <tr><td>45–54</td><td>0.0243</td><td>0.0285</td><td>0.0314</td><td>0.0345</td></tr>
+                  <tr><td>55–64</td><td>0.0490</td><td>0.0454</td><td>0.0614</td><td>0.0569</td></tr>
+                  <tr><td>65–74</td><td>0.1351</td><td>0.1376</td><td>0.1367</td><td>0.1392</td></tr>
+                  <tr><td>75–84</td><td>0.1072</td><td>0.1083</td><td>0.1100</td><td>0.1114</td></tr>
+                  <tr><td>85+</td><td>0.0872</td><td>0.0871</td><td>0.0934</td><td>0.0933</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="proj-slide-nav">
+        <button class="proj-slide-arrow" onclick="slideProj(0,-1)">‹</button>
+        <button class="proj-slide-dot active" id="dot-0-0" onclick="goSlide(0,0)"></button>
+        <button class="proj-slide-dot" id="dot-0-1" onclick="goSlide(0,1)"></button>
+        <button class="proj-slide-arrow" onclick="slideProj(0,1)">›</button>
+      </div>
+    </div>
+
+    <!-- PROJECT 2 placeholder -->
+    <div class="proj-card-outer" id="proj-1" style="display:none; text-align:center; padding: 4rem 2rem;">
+      <p style="opacity:0.4; font-size:0.95rem;">Your next project goes here — add a new tab and card when you're ready!</p>
+    </div>
+
   </div>
 </section>
 
@@ -478,10 +570,10 @@
       <div class="contact-label">Phone</div>
       <div class="contact-value">404 940 2954</div>
     </a>
-    <a href="mailto:ygoveamorales@gmail.com" class="contact-card">
+    <a href="/cdn-cgi/l/email-protection#6c150b031a090d01031e0d00091f2c0b010d0500420f0301" class="contact-card">
       <div class="contact-icon"><img src="email-icon.png" alt="Email" style="width:1.4rem;height:1.4rem;object-fit:contain;"/></div>
       <div class="contact-label">Email</div>
-      <div class="contact-value">ygoveamorales@gmail.com</div>
+      <div class="contact-value"><span class="__cf_email__" data-cfemail="0b726c647d6e6a6664796a676e784b6c666a626725686466">[email&#160;protected]</span></div>
     </a>
     <a href="https://www.linkedin.com/in/yulisagovea-morales/" target="_blank" class="contact-card">
       <div class="contact-icon"><img src="linkedin-icon.png" alt="LinkedIn" style="width:1.4rem;height:1.4rem;object-fit:contain;"/></div>
@@ -501,6 +593,27 @@
   }, { threshold: 0.05 });
   document.querySelectorAll('.reveal').forEach(r => observer.observe(r));
   document.querySelectorAll('.gt-item').forEach(item => item.addEventListener('click', () => item.classList.toggle('open')));
+
+  const projSlides = { 0: 0 };
+  function switchProj(i) {
+    document.querySelectorAll('.proj-card-outer').forEach((c,j) => c.style.display = j===i ? 'block' : 'none');
+    document.querySelectorAll('.proj-tab').forEach((t,j) => t.classList.toggle('active', j===i));
+  }
+  function slideProj(proj, dir) {
+    const track = document.getElementById('proj-track-' + proj);
+    const total = track.children.length;
+    projSlides[proj] = ((projSlides[proj] || 0) + dir + total) % total;
+    updateSlide(proj);
+  }
+  function goSlide(proj, i) {
+    projSlides[proj] = i;
+    updateSlide(proj);
+  }
+  function updateSlide(proj) {
+    const cur = projSlides[proj];
+    document.getElementById('proj-track-' + proj).style.transform = `translateX(-${cur * 100}%)`;
+    document.querySelectorAll(`[id^="dot-${proj}-"]`).forEach((d,i) => d.classList.toggle('active', i===cur));
+  }
 </script>
 </body>
 </html>
